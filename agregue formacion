@@ -1,0 +1,42 @@
+class Formaciones {
+  #vagones = [];
+
+  constructor(unaListaDeVagones) {
+    this.#vagones = unaListaDeVagones;
+  }
+
+  obtenerVagones() {
+    return this.#vagones;
+  }
+
+  agregarVagon(unVagon) {
+    this.#vagones.push(unVagon);
+  }
+
+  obtenerPasajerosMaximos() {
+    return this.#vagones.reduce((total, vagon) => total + vagon.pasajerosMaximos, 0);
+  }
+
+  obtenerVagonesPopulares() {
+    return this.#vagones.filter(vagon => vagon.pasajerosMaximos > 50);
+  }
+
+  esFormacionCarguera() {
+    return this.#vagones.every(vagon => vagon.cargaMaxima >= 1000);
+  }
+
+  obtenerDispersiónDePesos() {
+    const pesosMaximos = this.#vagones.map(vagon => vagon.pesoMaximo);
+    return Math.max(...pesosMaximos) - Math.min(...pesosMaximos);
+  }
+
+  obtenerCantidadDeBaños() {
+    return this.#vagones.filter(vagon => vagon.tieneBaños).length;
+  }
+
+  hacerMantenimiento() {
+    this.#vagones.forEach(vagon => vagon.hacerMantenimiento());
+  }
+}
+
+module.exports = Formaciones;
