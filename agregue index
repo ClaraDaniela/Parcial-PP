@@ -1,0 +1,51 @@
+const Formacion = require('./Formaciones');
+const { VagonDePasajeros, VagonDeCarga, VagonDeDormitorio } = require('./Vagones');
+
+
+//instancias de los vagones
+const vagonPasajeros1 = new VagonDePasajeros(10, 4, true, true);
+const vagonPasajeros2 = new VagonDePasajeros(7, 2, false, false);
+const vagonCarga = new VagonDeCarga(6800, 5);
+const vagonDormitorio = new VagonDeDormitorio(8, 3);
+
+// instancia de formación y pasar los vagones
+const formacion = new Formacion([vagonPasajeros1, vagonPasajeros2, vagonCarga, vagonDormitorio]);
+
+// resultados antes del mantenimiento
+console.log("Información de los vagones:");
+console.log("----------------------------------------------------------");
+console.log("| Vagón | Pasajeros | Peso Máximo | Carga Máxima | Tiene Baño |");
+console.log("----------------------------------------------------------");
+
+formacion.obtenerVagones().forEach((vagon, indice) => {
+  console.log(
+    `|   ${indice + 1}   |     ${vagon.pasajerosMaximos}     |    ${vagon.pesoMaximo}    |     ${vagon.cargaMaxima}      |${vagon.tieneBaños ? 'Sí' : 'No'}|`
+  );
+});
+
+console.log("----------------------------------------------------------");
+
+// ... (resto del código)
+
+// Antes del mantenimiento
+console.log("  antes   ");
+console.log("------------------------------");
+console.log("  Pasajeros:           ", formacion.obtenerPasajerosMaximos());
+console.log("  Vagones Populares:   ", formacion.obtenerVagonesPopulares().length);
+console.log("  Es Carguero:         ", formacion.esFormacionCarguera() ? "Sí" : "No");
+console.log("  Dispersión de Pesos: ", formacion.obtenerDispersiónDePesos());
+console.log("  Baños:               ", formacion.obtenerCantidadDeBaños());
+console.log("------------------------------");
+
+// Aplicar mantenimiento
+formacion.hacerMantenimiento();
+
+// Después del mantenimiento
+console.log("\n  después ");
+console.log("------------------------------");
+console.log("  Pasajeros:           ", formacion.obtenerPasajerosMaximos());
+console.log("  Vagones Populares:   ", formacion.obtenerVagonesPopulares().length);
+console.log("  Es Carguero:         ", formacion.esFormacionCarguera() ? "Sí" : "No");
+console.log("  Dispersión de Pesos: ", formacion.obtenerDispersiónDePesos());
+console.log("  Baños:               ", formacion.obtenerCantidadDeBaños());
+console.log("------------------------------");
