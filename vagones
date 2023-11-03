@@ -1,0 +1,82 @@
+// Defino clase para vagones de pasajeros
+class VagonDePasajeros {
+  constructor(unLargo, unAncho, tieneBaños, estaOrdenado) {
+    this.largo = unLargo;
+    this.ancho = unAncho;
+    this.tieneBaños = tieneBaños;
+    this.ordenado = estaOrdenado;
+    this.pasajerosMaximos = this.calcularPasajerosMaximos();
+    this.cargaMaxima = this.calcularCargaMaxima();
+    this.pesoMaximo = this.calcularPesoMaximo();
+  }
+
+  calcularPasajerosMaximos() {
+    let pasajerosPorMetro = this.ancho <= 3 ? 8 : 10;
+    let pasajeros = this.largo * pasajerosPorMetro;
+
+    return this.ordenado ? pasajeros : pasajeros - 15;
+  }
+
+  calcularCargaMaxima() {
+    return this.tieneBaños ? 300 : 800;
+  }
+
+  calcularPesoMaximo() {
+    return 2000 + 80 * this.pasajerosMaximos + this.cargaMaxima;
+  }
+
+  hacerMantenimiento() {
+    this.ordenado = true;
+  }
+}
+
+// Defino clase vagon de carga
+class VagonDeCarga {
+  constructor(cargaMaximaIdeal, maderasSueltas) {
+    this.cargaMaximaIdeal = cargaMaximaIdeal;
+    this.maderasSueltas = maderasSueltas;
+    this.tieneBaños = false;
+    this.cargaMaxima = this.calcularCargaMaxima();
+    this.pesoMaximo = this.calcularPesoMaximo();
+    this.pasajerosMaximos = 0;
+  }
+
+  calcularCargaMaxima() {
+    return this.cargaMaximaIdeal - 400 * this.maderasSueltas;
+  }
+
+  calcularPesoMaximo() {
+    return 1500 + this.cargaMaxima;
+  }
+
+  hacerMantenimiento() {
+   this.maderasSueltas = Math.max(0, this.maderasSueltas - 2);
+   this.cargaMaxima = this.calcularCargaMaxima()
+   this.pesoMaximo = this.calcularPesoMaximo(); 
+  }
+}
+
+// Defino clase de vagones de dormitorios
+class VagonDeDormitorio {
+  constructor(compartimientos, camasPorCompartimiento) {
+    this.compartimientos = compartimientos;
+    this.camasPorCompartimiento = camasPorCompartimiento;
+    this.pasajerosMaximos = this.calcularPasajerosMaximos();
+    this.cargaMaxima = 1200;
+    this.pesoMaximo = this.calcularPesoMaximo();
+    this.tieneBaños = true;
+  }
+
+  calcularPasajerosMaximos() {
+    return this.compartimientos * this.camasPorCompartimiento;
+  }
+
+  calcularPesoMaximo() {
+    return 4000 + 80 * this.pasajerosMaximos + this.cargaMaxima;
+  }
+
+  hacerMantenimiento() {
+  }
+}
+
+module.exports = { VagonDePasajeros, VagonDeCarga, VagonDeDormitorio };
